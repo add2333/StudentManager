@@ -1,3 +1,11 @@
 /.idea
 
 /__pycache__/
+
+# 打包成 exe 的中间文件
+
+/build/
+
+/dist/
+
+LoginPage.spec
