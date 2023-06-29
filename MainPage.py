@@ -6,7 +6,7 @@ class MainPage:
     def __init__(self, master: tk.Tk):
         self.root = master
         self.root.title('学生信息管理系统 by add')
-        self.root.geometry("800x800")
+        self.root.geometry("1200x800")
         self.build_page()
 
     def build_page(self):
