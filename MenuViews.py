@@ -68,7 +68,7 @@ class ChangeFrame(tk.Frame):
         self.classes.set('')
         self.sex.set('')
         self.email.set('')
-        print(stu)
+        # print(stu)
         db.update(stu)
         self.status.set('修改{%s}同学的信息成功！' % (stu["name"]))
         pass
@@ -114,9 +114,15 @@ class InsertFrame(tk.Frame):
         self.classes.set('')
         self.sex.set('')
         self.email.set('')
-        print(stu)
-        db.insert(stu)
-        self.status.set('成功插入！')
+        # print(stu)
+        isinserted, message = db.insert(stu)
+        isinserted = False
+        if isinserted:
+            self.status.set('成功插入！')
+        else:
+            messagebox.showwarning(title='插入失败', message=message)
+            self.status.set(message)
+
 
 
 class SearchFrame(tk.Frame):
@@ -163,7 +169,7 @@ class SearchFrame(tk.Frame):
 
         students = db.all_student()
         for index, stu in enumerate(students):
-            print(stu)
+            # print(stu)
             self.tree_view.insert('', index, values=(stu['name'], stu['id'], stu['GPA'],
                                                      stu['class'], stu['sex'], stu['email']))
 

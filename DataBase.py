@@ -18,12 +18,18 @@ class MysqlDatabases:
     def all_student(self):
         return self.students
 
-    def is_valid_email(self):
-        pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
-        return re.match(pattern, self.students['email']) is not None
+    def is_valid_email(self, email):
+        regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+        if re.fullmatch(regex, email):
+            # print('='*10, "ok", '='*10)
+            return True
+        else:
+            # print('='*10, "err", '='*10)
+            return False
 
-    def insert(self, student):
-        if not self.is_valid_email:
+    def insert(self, student:dict):
+
+        if not self.is_valid_email(student['email']):
             return False, '邮箱格式不正确'
         else:
             self.students.append(student)
