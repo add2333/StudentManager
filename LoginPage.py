@@ -12,6 +12,7 @@ from MainPage import MainPage
 class LoginPage:
 
     def __init__(self, master):
+        # 初始化登录页面
         self.root = master
         self.root.geometry('600x360')
         self.root.title('Login Page')
@@ -33,15 +34,21 @@ class LoginPage:
         tk.Button(self.page, text='退出', command=self.page.quit).grid(row=3, column=2)
 
     def login(self):
+        # 登录按钮的回调函数
+        # 获取用户名
         name = self.userName.get()
+        # 获取密码
         pwd = self.userPassword.get()
+        # 调用数据库的check_login方法验证用户名和密码
         islogin, errmessage = db.check_login(name, pwd)
         if islogin:
-            # 销毁登陆界面
+            # 如果验证通过，销毁登录界面，创建主页面对象
             self.page.destroy()
             MainPage(self.root)
         else:
+            # 如果验证失败，弹出警告对话框显示错误消息
             messagebox.showwarning(title='Warning', message=errmessage)
+
 
 
 if __name__ == '__main__':

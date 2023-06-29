@@ -3,6 +3,7 @@ from MenuViews import InsertFrame, SearchFrame, SearchByIdFrame, SearchByNameFra
 
 
 class MainPage:
+    # 调用MenuViews中的各种类，实现切换页面的效果
     def __init__(self, master: tk.Tk):
         self.root = master
         self.root.title('学生信息管理系统 by add')
