@@ -73,7 +73,3 @@ class MysqlDatabases:
 
 
 db = MysqlDatabases()
-if __name__ == '__main__':
-    # print(db.check_login('teacher', '111111'))
-    # print(db.all_student())
-    print(db.search_by_name('2'))

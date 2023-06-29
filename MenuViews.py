@@ -114,15 +114,14 @@ class InsertFrame(tk.Frame):
         self.classes.set('')
         self.sex.set('')
         self.email.set('')
+        self.status.set('')
         # print(stu)
         isinserted, message = db.insert(stu)
-        isinserted = False
         if isinserted:
             self.status.set('成功插入！')
         else:
             messagebox.showwarning(title='插入失败', message=message)
             self.status.set(message)
-
 
 
 class SearchFrame(tk.Frame):
@@ -268,6 +267,7 @@ class SearchByNameFrame(tk.Frame):
 
         pass
 
+
 class DeleteFrame(tk.Frame):
     def __init__(self, root):
         super().__init__(root)
@@ -284,5 +284,5 @@ class DeleteFrame(tk.Frame):
         if isdelete:
             self.status.set(message)
         else:
-            messagebox.showwarning(title='Warning', message=message)
+            messagebox.showwarning(title='删除失败', message=message)
         pass
