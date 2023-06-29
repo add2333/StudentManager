@@ -1,5 +1,5 @@
 import json
-
+import re
 
 class MysqlDatabases:
     def __init__(self):
@@ -18,10 +18,18 @@ class MysqlDatabases:
     def all_student(self):
         return self.students
 
+    def is_valid_email(self):
+        pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+        return re.match(pattern, self.students['email']) is not None
+
     def insert(self, student):
-        self.students.append(student)
-        with open('students.json', mode='w', encoding='utf-8') as f:
-            json.dump(self.students, f, ensure_ascii=False)
+        if not self.is_valid_email:
+            return False, '邮箱格式不正确'
+        else:
+            self.students.append(student)
+            with open('students.json', mode='w', encoding='utf-8') as f:
+                json.dump(self.students, f, ensure_ascii=False)
+            return True, '插入成功'
 
     def delete_by_name(self, name):
         for stu in self.students:
@@ -33,12 +41,19 @@ class MysqlDatabases:
                 return True, f'{name} 删除成功'
         return False, f'{name} 不存在'
 
-    def search_by_name(self, name):
+    def search_by_name(self, targetname):
         for stu in self.students:
             print(stu)
-            if stu['name'] == name:
+            if stu['name'] == targetname:
                 return True, stu
-        return False, f'{name} 不存在'
+        return False, f'{targetname} 不存在'
+
+    def search_by_id(self, targetid):
+        for stu in self.students:
+            print(stu)
+            if stu['id'] == targetid:
+                return True, stu
+        return False, f'学号为 {targetid} 的学生不存在'
 
     def update(self, targetstu):
         for stu in self.students:
@@ -46,7 +61,7 @@ class MysqlDatabases:
             if stu['name'] == targetstu['name']:
                 stu.update(targetstu)
                 with open('students.json', mode='w', encoding='utf-8') as f:
-                    json.dump(stu, f, ensure_ascii=False)
+                    json.dump(self.students, f, ensure_ascii=False)
                 return True, f'{targetstu["name"]} 学生信息修改成功'
         return False, f'{targetstu["name"]} 不存在'
 
